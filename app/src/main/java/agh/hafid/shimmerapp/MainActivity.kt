@@ -1,9 +1,11 @@
 package agh.hafid.shimmerapp
 
+import agh.hafid.shimmerapp.adapters.PhotosAdapter
 import android.app.DownloadManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                     for (i in 0 until json.length()) {
                         photos.add(json.getJSONObject(i))
                     }
+                    showItems(photos)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -60,6 +63,13 @@ class MainActivity : AppCompatActivity() {
         }
         val requestQueue = Volley.newRequestQueue(this)
         requestQueue.add(stringRequest)
+    }
+
+    private fun showItems(data:MutableList<JSONObject>){
+        val adapter = PhotosAdapter(data,this)
+        dataContainer.adapter = adapter
+        shimmer.stopShimmer()
+        dataContainer.visibility = View.VISIBLE
     }
 
     override fun onResume() {
