@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
 class PhotosAdapter(val data:MutableList<JSONObject>,val context:Context): RecyclerView.Adapter<PhotosAdapter.mViewHolder>() {
@@ -31,7 +32,7 @@ class PhotosAdapter(val data:MutableList<JSONObject>,val context:Context): Recyc
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return 10
     }
 
     override fun onBindViewHolder(holder: mViewHolder, position: Int) {
@@ -39,7 +40,8 @@ class PhotosAdapter(val data:MutableList<JSONObject>,val context:Context): Recyc
         val image = photo.getString("thumbnailUrl");
         val title = photo.getString("title")
 
-        Glide.with(context).load(image).into(holder.image)
+        //Glide.with(context).load(image).into(holder.image)
+        Picasso.get().load(image).into(holder.image)
         holder.text.setText(title)
 
 
